@@ -44,9 +44,24 @@ app.get('/pagar', async (req,res) => {
 });
 
 app.post('/not', (req,res) => {
-    console.log(req.query);
+    var id = req.query.id;
+    setTimeout(()=> {
+        var filtro = {
+            "order.id": id
+        }
+        MercadoPago.payment.search({
+            qs: filtro
+        }).then(data =>{
+            console.log(data);
+        }).catch(error =>{
+            console.log(error);
+        });
+
+    }, 20000);
     res.send('OK');
 });
+
+
 
 app.listen(80,(req, res) =>{
     console.log("Servidor rodando!");
